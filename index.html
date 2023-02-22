@@ -1,82 +1,65 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>自由解答式クイズ</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-		}
-		
-		.container {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			height: 100vh;
-		}
+  <head>
+    <meta charset="UTF-8">
+    <title>自由解答式クイズ</title>
+	  <script>
+  const questions = [
+    {
+      question: "3+5は何ですか？",
+      answer: "8"
+    },
+    {
+      question: "5-2は何ですか？",
+      answer: "3"
+    },
+    {
+      question: "10÷2は何ですか？",
+      answer: "5"
+    }
+  ];
 
-		h1 {
-			text-align: center;
-		}
+  let currentQuestionIndex = 0;
 
-		form {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			margin-top: 2rem;
-		}
+  function displayCurrentQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    const questionElement = document.querySelector("h2");
+    questionElement.innerHTML = currentQuestion.question;
+  }
 
-		label {
-			margin-bottom: 0.5rem;
-		}
+  function checkAnswer() {
+    const currentQuestion = questions[currentQuestionIndex];
+    const userAnswer = document.querySelector("input[type='text']").value;
+    if (userAnswer === currentQuestion.answer) {
+      currentQuestionIndex++;
+      if (currentQuestionIndex >= questions.length) {
+        alert("クイズ終了！");
+      } else {
+        displayCurrentQuestion();
+      }
+    } else {
+      alert("不正解です。もう一度回答してください。");
+    }
+  }
 
-		input[type="text"] {
-			padding: 0.5rem;
-			margin-bottom: 1rem;
-			border: 1px solid #ccc;
-			border-radius: 5px;
-			width: 20rem;
-			font-size: 1rem;
-			text-align: center;
-		}
+  displayCurrentQuestion();
 
-		button {
-			padding: 0.5rem 1rem;
-			background-color: #007bff;
-			color: #fff;
-			border: none;
-			border-radius: 5px;
-			font-size: 1rem;
-			cursor: pointer;
-		}
+  const form = document.querySelector("form");
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    checkAnswer();
+  });
+</script>
 
-		.feedback {
-			margin-top: 1rem;
-			font-size: 1.2rem;
-			font-weight: bold;
-			text-align: center;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		<h1>自由解答式クイズ</h1>
-		<div id="question-container">
-			<h2 id="question"></h2>
-			<form id="answer-form">
-				<label for="answer-input">回答:</label>
-				<input type="text" id="answer-input" name="answer-input" required>
-				<button type="submit" id="submit-btn">回答する</button>
-			</form>
-			<div id="feedback-container">
-				<p id="feedback"></p>
-				<button type="button" id="next-btn" style="display: none;">次の問題へ</button>
-				<button type="button" id="retry-btn" style="display: none;">再挑戦</button>
-			</div>
-		</div>
-	</div>
-
-	<script src="script.js"></script>
-</body>
+  </head>
+  <body>
+    <!--ここに問題と回答フォームを表示する-->
+	  <div>
+  <h2>問題1： 3+5は何ですか？</h2>
+  <form>
+    <input type="text" placeholder="回答を入力してください">
+    <input type="submit" value="回答する">
+  </form>
+</div>
+  </body>
 </html>
